@@ -277,15 +277,15 @@ La clase `EstudioDiagnostico` de la P1 debe ampliarse para incorporar la **compo
    - Elimine los getters y setters del antiguo atributo `timestampPrescripcion`.
    - Modifique el método `toString()` para incluir los atributos `fechaPrescripcion` y `fechaInforme`, eliminando la referencia al antiguo `timestampPrescripcion`.
 
+> [!TIP]
+> Al modificar el constructor, no añada nuevos parámetros para los atributos que se inicializan automáticamente (como `muestras` o `resultados`). Estos atributos deben inicializarse dentro del constructor sin requerir valores externos.
+
 3. **Añadir getters y setters para las fechas en formato ISO-8601:**
 
    La API pública de la clase no expondrá los atributos `fechaPrescripcion` y `fechaInforme` directamente. En su lugar, implemente getters y setters que trabajan con cadenas de texto (`String`) en formato ISO-8601 (por ejemplo: "2025-12-05T12:42:00"). Los nombres de estos métodos incluirán el sufijo `Iso` para indicar que trabajan con el formato ISO-8601: `getFechaPrescripcionIso()`, `setFechaPrescripcionIso(String)`, `getFechaInformeIso()`, `setFechaInformeIso(String)`. 
 
    - En los métodos getter, convierta el objeto `LocalDateTime` a `String` utilizando el método [`toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html#toString()). Maneje correctamente el caso en que el atributo sea `null`, devolviendo `null` en ese caso.
    - En los métodos setter, convierta el `String` recibido a `LocalDateTime` utilizando el método [`LocalDateTime.parse(String)`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html#parse(java.lang.CharSequence)). Maneje correctamente el caso en que el parámetro recibido sea `null`.
-
-> [!TIP]
-> Al modificar el constructor en el paso 2, no añada nuevos parámetros para los atributos que se inicializan automáticamente (como `muestras` o `resultados`). Estos atributos deben inicializarse dentro del constructor sin requerir valores externos.
 
 4. **Integrar los atributos del informe:**
    - Añada un atributo `resultados` de tipo `Map<String, Integer>` para representar los resultados de un informe. Este mapa asociará el nombre de cada elemento microscópico (como un patógeno o fibrilla) con el número de píxeles marcados como `true` en las muestras analizadas.
@@ -353,7 +353,7 @@ Se deben crear dos interfaces que permitirán abstraer el comportamiento de elem
 2. **Actualizar la clase `Patogeno` para implementar la interfaz:**
    - Modifique la declaración de la clase `Patogeno` para que implemente la interfaz `ElementoMicroscopico` (añada `implements ElementoMicroscopico` en la declaración de clase). El método `getNombre()` ya existe en la clase, por lo que cumple automáticamente con el contrato de la interfaz sin necesidad de añadir nuevos métodos.
 
-3. **Integrar la clase `Fibrilla` proporcionada:**
+3. **Estudiar la clase `Fibrilla` proporcionada:**
    - La clase `Fibrilla` ya implementa la interfaz `ElementoMicroscopico` y se proporciona completa en los materiales de la práctica
    - Revise sus atributos: `nombre`, `longitudMin` (debe ser ≥2), `colorMin` y `colorMax` (valores entre 0-15)
    - Estudie las validaciones implementadas en su constructor para comprender su funcionamiento
@@ -406,7 +406,7 @@ La clase `ReconocedorLineal` se proporciona en los materiales de la práctica e 
 **Pasos a seguir:**
 
 1. **Revisar el código proporcionado:**
-   - Revise la implementación de la clase `ReconocedorLineal` y familiarícese con su estructura y funcionamiento
+   - Revise la implementación de la clase `ReconocedorLineal` y familiarícese con su estructura y funcionamiento. No es necesario estudiar ni modificar la implementación interna de sus métodos, sino entender qué tipo de estructuras es capaz de detectar a partir de la información de la ficha de la fibrilla.
    
    El algoritmo de detección busca segmentos lineales en tres direcciones: horizontales, verticales y diagonales. Solo considera segmentos cuya longitud sea mayor o igual a `longitudMin` (propiedad de la `Fibrilla`) y cuyos píxeles tengan valores dentro del rango `[colorMin, colorMax]` (propiedades de la `Fibrilla`). Cuando encuentra un segmento válido, marca como `true` todos los píxeles que forman parte de dicho segmento.
    
@@ -414,22 +414,23 @@ La clase `ReconocedorLineal` se proporciona en los materiales de la práctica e 
 
 2. **Modificar la clase para implementar la interfaz:**
    - Añada `implements ReconocedorImagen` a la declaración de la clase `ReconocedorLineal`
-   - Esto requerirá implementar los dos métodos definidos en la interfaz: `detectar` y `getElemento`
+   - ¡Esto requerirá implementar los dos métodos definidos en la interfaz: `detectar` y `getElemento`
 
 3. **Implementar el método `detectar`:**
    - Cree un método público con la siguiente signatura:
      ```
      public boolean[][] detectar(Muestra m)
      ```
-   - Implemente el método delegando la lógica de detección al método interno `segmentosDetectados(Muestra)` que ya existe en la clase
-   - Este método debe simplemente devolver el resultado de llamar a `segmentosDetectados(m)`
+   
+   Implemente el método delegando la lógica de detección al método interno `segmentosDetectados(Muestra)` que ya existe en la clase. Este método debe simplemente devolver el resultado de llamar a `segmentosDetectados(m)`
 
 4. **Implementar el método `getElemento`:**
    - Cree un método público con la siguiente signatura:
      ```
      public ElementoMicroscopico getElemento()
      ```
-   - Implemente el método devolviendo el atributo `fibrilla` (de tipo `Fibrilla`) que ya existe en la clase
+   
+   Implemente el método devolviendo el atributo `fibrilla` (de tipo `Fibrilla`) que ya existe en la clase
 
 > [!NOTE]
 > El método `segmentosDetectados` ya implementado realiza todo el trabajo de detección. Los métodos `detectar` y `getElemento` actúan como adaptadores que permiten que esta clase cumpla con el contrato de la interfaz `ReconocedorImagen`.
@@ -473,7 +474,7 @@ Esta clase coordina múltiples reconocedores y genera el informe cuantitativo ag
      }
      ```
    - Este método recorre toda la matriz booleana y cuenta cuántos elementos tienen el valor `true`
-   - Utilice este método en el paso 3 para contar los píxeles positivos detectados
+   - Utilice este método en el paso 2 para contar los píxeles positivos detectados
 
 > [!NOTE]
 > El método `analizar` debe procesar todas las muestras del estudio, aplicar todos los reconocedores registrados sobre cada muestra, y acumular correctamente los píxeles positivos agrupados por nombre de elemento microscópico.
@@ -500,7 +501,120 @@ La clase `EstudioDiagnostico` debe incluir funcionalidad para guardar su estado 
 > [!NOTE]
 > Para que `XMLEncoder` funcione correctamente, las clases serializadas deben cumplir una serie de características. Si al ejecutar el guardado obtiene errores relacionados con la serialización, verifique que todas las clases involucradas (`EstudioDiagnostico`, `Muestra`, `Medico`, `Paciente`, etc.) tengan un constructor sin argumentos (público o con visibilidad de paquete). Compruebe además que todas las propiedades que desea persistir tengan sus correspondientes métodos getter y setter. Para las propiedades de tipo `LocalDateTime` en `EstudioDiagnostico`, recuerde que ya implementó en el ejercicio 1 los métodos con sufijo `Iso` que trabajan con `String` en formato ISO-8601, que son compatibles con `XMLEncoder`. Todos estos requisitos ya se proporcionaron implementados o fueron solicitados en ejercicios anteriores. Si encuentra problemas de serialización, revise que no haya modificado accidentalmente ninguna de las cosas que se especifica en el apartado 2. Además, en la clase `Muestra`, asegúrese de que no ha eliminado la anotación `@java.beans.Transient` del método getter de la matriz de píxeles. Esta anotación evita que se serialice la matriz completa de píxeles, que puede ser muy grande
 
+A continuación se incluye un posible ejemplo del aspecto que tendría un fichero generado de esta forma:
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.17" class="java.beans.XMLDecoder">
+ <object class="es.upm.dit.fprg.p3.EstudioDiagnostico" id="EstudioDiagnostico0">
+  <void property="fechaInformeIso">
+   <string>2025-12-09T17:07:39.821158962</string>
+  </void>
+  <void property="fechaPrescripcionIso">
+   <string>2025-12-09T17:07:39.781746155</string>
+  </void>
+  <void property="informador">
+   <object class="es.upm.dit.fprg.p3.Medico">
+    <void property="centroSanitario">
+     <string>Hospital La Paz</string>
+    </void>
+    <void property="colegiado">
+     <string>28/28/22222</string>
+    </void>
+    <void property="especialidad">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>es.upm.dit.fprg.p3.EspecialidadMedica</class>
+      <string>RADIOLOGIA</string>
+     </object>
+    </void>
+    <void property="nombreCompleto">
+     <string>Dra. Ana Torres Ruiz</string>
+    </void>
+   </object>
+  </void>
+  <void property="muestras">
+   <void method="add">
+    <object class="es.upm.dit.fprg.p3.Muestra">
+     <void property="id">
+      <string>M001</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="es.upm.dit.fprg.p3.Muestra">
+     <void property="id">
+      <string>M002</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="paciente">
+   <object class="es.upm.dit.fprg.p3.Paciente">
+    <void property="anioNacimiento">
+     <int>1973</int>
+    </void>
+    <void property="dni">
+     <string>87654321B</string>
+    </void>
+    <void property="nombre">
+     <string>María</string>
+    </void>
+    <void property="primerApellido">
+     <string>López</string>
+    </void>
+    <void property="segundoApellido">
+     <string>García</string>
+    </void>
+   </object>
+  </void>
+  <void property="prescriptor">
+   <object class="es.upm.dit.fprg.p3.Medico">
+    <void property="centroSanitario">
+     <string>Hospital La Paz</string>
+    </void>
+    <void property="colegiado">
+     <string>28/28/11111</string>
+    </void>
+    <void property="especialidad">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>es.upm.dit.fprg.p3.EspecialidadMedica</class>
+      <string>MICROBIOLOGIA</string>
+     </object>
+    </void>
+    <void property="nombreCompleto">
+     <string>Dr. Carlos Ramírez Sánchez</string>
+    </void>
+   </object>
+  </void>
+  <void property="resultados">
+   <object class="java.util.LinkedHashMap">
+    <void method="put">
+     <string>Virus_XYZ</string>
+     <int>160</int>
+    </void>
+    <void method="put">
+     <string>Fibrilla_Oscura</string>
+     <int>8020</int>
+    </void>
+    <void method="put">
+     <string>Fibrilla_Clara</string>
+     <int>2120</int>
+    </void>
+    <void method="put">
+     <string>Bacteria_Tipo_A</string>
+     <int>1233</int>
+    </void>
+   </object>
+  </void>
+  <void property="tecnica">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>es.upm.dit.fprg.p3.TecnicaAdquisicion</class>
+    <string>ECOGRAFIA</string>
+   </object>
+  </void>
+ </object>
+</java>
+```
 ### 8. Probar el sistema completo
 
 Se proporcionan ficheros de prueba completos que demuestran el flujo integrado del sistema de diagnóstico microscópico. Estos ficheros incluyen todo el código necesario para cargar muestras, realizar análisis, generar informes y lanzar una prueba gráfica interactiva. El objetivo es verificar que todas las componentes desarrolladas funcionan correctamente de forma integrada.
@@ -540,6 +654,7 @@ Se incluyen en los materiales de la práctica clases de prueba que implementan l
 
 > [!TIP]
 > Si se encuentran errores durante la ejecución de las pruebas, conviene revisar la implementación de los ejercicios anteriores. Los mensajes de error ayudan a localizar el componente que falla. En algunas pruebas puede provocarse intencionadamente que se lance y capture una excepción para comprobar que el tratamiento de errores es correcto; esto no implica necesariamente que el código esté mal implementado.
+
 
 ### Exportar el proyecto
 
