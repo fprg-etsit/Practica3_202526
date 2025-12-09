@@ -27,7 +27,7 @@ public class AnalizadorDiagnostico {
      * Conjunto de reconocedores registrados que se aplicarán sobre las muestras.
      * Se utiliza un Set para evitar duplicados.
      */
-    private final Set<ReconocedorImagen> reconocedores;
+    private Set<ReconocedorImagen> reconocedores;
 
     /**
      * Constructor que inicializa el analizador sin reconocedores.

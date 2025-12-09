@@ -21,7 +21,8 @@ import java.util.Map;
 public class PruebaSistemaCompleto {
 
     public static void main(String[] args) {
-        System.out.println("=== PRUEBA DEL SISTEMA COMPLETO ===\n");
+        System.out.println("=== PRUEBA DEL SISTEMA COMPLETO ===");
+        System.out.println();
 
         try {
             // ========================================
@@ -39,7 +40,8 @@ public class PruebaSistemaCompleto {
 
             // Ejemplo de carga desde URL (comentado, descomentar si hay URL disponible)
             /*
-            System.out.println("\n   Cargando muestra desde URL...");
+            System.out.println();
+            System.out.println("   Cargando muestra desde URL...");
             Muestra muestra3 = cargarMuestraDesdeURL(
                 "https://ejemplo.com/muestra3.png", "M003");
             System.out.println("   ✓ Muestra M003 cargada desde URL");
@@ -48,7 +50,8 @@ public class PruebaSistemaCompleto {
             // ========================================
             // 2. CREAR ESTUDIO DIAGNÓSTICO
             // ========================================
-            System.out.println("\n2. Creando estudio diagnóstico...");
+            System.out.println();
+            System.out.println("2. Creando estudio diagnóstico...");
             
             // Crear paciente con los atributos correctos
             Paciente paciente = new Paciente(
@@ -75,7 +78,7 @@ public class PruebaSistemaCompleto {
                 "28/28/22222",                         // idColegiado
                 "Dra. Ana Torres Ruiz",                // nombreCompleto
                 "Hospital La Paz",                     // centroSanitario
-                EspecialidadMedica.RADIOLOGIA  // especialidad
+                EspecialidadMedica.RADIOLOGIA          // especialidad
             );
             System.out.println("   ✓ Informador: " + informador.getNombreCompleto());
 
@@ -88,7 +91,8 @@ public class PruebaSistemaCompleto {
             System.out.println("   ✓ Estudio creado con técnica: " + TecnicaAdquisicion.ECOGRAFIA);
 
             // Añadir muestras al estudio
-            System.out.println("\n   Añadiendo muestras al estudio...");
+            System.out.println();
+            System.out.println("   Añadiendo muestras al estudio...");
             estudio.addMuestra(muestra1);
             estudio.addMuestra(muestra2);
             System.out.println("   ✓ " + estudio.getMuestras().size() + " muestras añadidas");
@@ -96,7 +100,8 @@ public class PruebaSistemaCompleto {
             // ========================================
             // 3. CONFIGURAR RECONOCEDORES
             // ========================================
-            System.out.println("\n3. Configurando reconocedores...");
+            System.out.println();
+            System.out.println("3. Configurando reconocedores...");
 
             // Crear patógenos para reconocer
             Patogeno bacteria = new Patogeno("Bacteria_Tipo_A", new int[][]{
@@ -115,10 +120,10 @@ public class PruebaSistemaCompleto {
 
             // Crear fibrillas para reconocer
             Fibrilla fibrillaOscura = new Fibrilla("Fibrilla_Oscura", 5, 0, 4);
-            System.out.println("   ✓ Fibrilla 'Fibrilla_Oscura' definida (long≥5, color 0-4)");
+            System.out.println("   ✓ Fibrilla 'Fibrilla_Oscura' definida (long>=5, color 0-4)");
 
             Fibrilla fibrillaClara = new Fibrilla("Fibrilla_Clara", 8, 10, 15);
-            System.out.println("   ✓ Fibrilla 'Fibrilla_Clara' definida (long≥8, color 10-15)");
+            System.out.println("   ✓ Fibrilla 'Fibrilla_Clara' definida (long>=8, color 10-15)");
 
             // Crear reconocedores
             ReconocedorPatron reconocedorBacteria = new ReconocedorPatron(bacteria);
@@ -137,20 +142,24 @@ public class PruebaSistemaCompleto {
             // ========================================
             // 4. EJECUTAR ANÁLISIS Y GENERAR INFORME
             // ========================================
-            System.out.println("\n4. Ejecutando análisis...");
+            System.out.println();
+            System.out.println("4. Ejecutando análisis...");
             
             Map<String, Integer> resultados = analizador.analizar(estudio);
             
-            System.out.println("\n   RESULTADOS DEL ANÁLISIS:");
-            System.out.println("   " + "=".repeat(50));
-            for (Map.Entry<String, Integer> entry : resultados.entrySet()) {
-                System.out.printf("   %-25s : %8d píxeles%n", 
-                        entry.getKey(), entry.getValue());
+            System.out.println();
+            System.out.println("   RESULTADOS DEL ANÁLISIS:");
+            System.out.println("   ==================================================");
+            for (Map.Entry<String, Integer> entrada : resultados.entrySet()) {
+                String nombre = entrada.getKey();
+                int pixeles = entrada.getValue();
+                System.out.println("   " + nombre + " : " + pixeles + " píxeles");
             }
-            System.out.println("   " + "=".repeat(50));
+            System.out.println("   ==================================================");
 
             // Generar informe oficial
-            System.out.println("\n   Generando informe oficial...");
+            System.out.println();
+            System.out.println("   Generando informe oficial...");
             estudio.informar(informador, resultados);
             System.out.println("   ✓ Informe generado por: " + informador.getNombreCompleto());
             System.out.println("   ✓ Especialidad: " + informador.getEspecialidad());
@@ -159,43 +168,46 @@ public class PruebaSistemaCompleto {
             // ========================================
             // 5. GUARDAR EN XML
             // ========================================
-            System.out.println("\n5. Guardando estudio en XML...");
+            System.out.println();
+            System.out.println("5. Guardando estudio en XML...");
             
             String rutaXML = "data/estudio_completo.xml";
             guardarEstudio(estudio, rutaXML);
             System.out.println("   ✓ Estudio guardado en: " + rutaXML);
 
             // ========================================
-            // 6. VISUALIZACIÓN DE MÁSCARAS (simulada)
+            // 6. CASOS DE PRUEBA ADICIONALES
             // ========================================
-            System.out.println("\n6. Generando máscaras de detección...");
-            visualizarMascaras(muestra1, reconocedorBacteria, reconocedorFibrillaClara);
-
-            // ========================================
-            // 7. CASOS DE PRUEBA ADICIONALES
-            // ========================================
-            System.out.println("\n7. Ejecutando casos de prueba adicionales...");
+            System.out.println();
+            System.out.println("7. Ejecutando casos de prueba adicionales...");
             ejecutarCasosDePruebaAdicionales();
 
             // Resumen final del estudio
-            System.out.println("\n" + "=".repeat(60));
+            System.out.println();
+            System.out.println("============================================================");
             System.out.println("RESUMEN DEL ESTUDIO:");
             System.out.println("  Paciente: " + paciente.getNombre() + " " 
                     + paciente.getPrimerApellido() + " " + paciente.getSegundoApellido());
             System.out.println("  DNI: " + paciente.getDni());
             System.out.println("  Edad: " + paciente.getEdad() + " años");
-            System.out.println("  Pediátrico: " + (paciente.esPediatrico() ? "Sí" : "No"));
+            if (paciente.esPediatrico()) {
+                System.out.println("  Pediátrico: Sí");
+            } else {
+                System.out.println("  Pediátrico: No");
+            }
             System.out.println("  Prescrito por: " + prescriptor.getNombreCompleto());
             System.out.println("  Centro: " + prescriptor.getCentroSanitario());
             System.out.println("  Informado por: " + informador.getNombreCompleto());
             System.out.println("  Muestras analizadas: " + estudio.getMuestras().size());
             System.out.println("  Elementos detectados: " + resultados.size());
-            System.out.println("=".repeat(60));
+            System.out.println("============================================================");
 
-            System.out.println("\n=== PRUEBA COMPLETADA EXITOSAMENTE ===");
+            System.out.println();
+            System.out.println("=== PRUEBA COMPLETADA EXITOSAMENTE ===");
 
         } catch (Exception e) {
-            System.err.println("\n✗ ERROR durante la prueba: " + e.getMessage());
+            System.err.println();
+            System.err.println("✗ ERROR durante la prueba: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -209,8 +221,11 @@ public class PruebaSistemaCompleto {
      * @throws Exception si hay error en la carga
      */
     private static Muestra cargarMuestraDesdeArchivo(String ruta, String id) throws Exception {
-        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(ruta))) {
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(ruta));
+        try {
             return new Muestra(in, id);
+        } finally {
+            in.close();
         }
     }
 
@@ -224,8 +239,11 @@ public class PruebaSistemaCompleto {
      */
     private static Muestra cargarMuestraDesdeURL(String urlString, String id) throws Exception {
         URL url = new URL(urlString);
-        try (InputStream in = new BufferedInputStream(url.openStream())) {
+        InputStream in = new BufferedInputStream(url.openStream());
+        try {
             return new Muestra(in, id);
+        } finally {
+            in.close();
         }
     }
 
@@ -236,54 +254,33 @@ public class PruebaSistemaCompleto {
      * @param ruta ruta del archivo XML
      */
     private static void guardarEstudio(EstudioDiagnostico estudio, String ruta) {
-        try (BufferedOutputStream out = new BufferedOutputStream(
-                new FileOutputStream(ruta))) {
-            estudio.guardar(out);
+        try {
+            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(ruta));
+            try {
+                estudio.guardar(out);
+            } finally {
+                out.close();
+            }
         } catch (IOException e) {
             System.err.println("   ✗ Error al guardar XML: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    /**
-     * Visualiza las máscaras de detección generadas por reconocedores.
-     * (Versión simplificada sin GUI)
-     *
-     * @param muestra muestra a analizar
-     * @param reconocedores reconocedores a aplicar
-     */
-    private static void visualizarMascaras(Muestra muestra, ReconocedorImagen... reconocedores) {
-        for (ReconocedorImagen reconocedor : reconocedores) {
-            boolean[][] mascara = reconocedor.detectar(muestra);
-            int positivos = contarPositivos(mascara);
-            
-            System.out.println("\n   Máscara para: " + reconocedor.getElemento().getNombre());
-            System.out.println("   Dimensiones: " + mascara.length + "x" + mascara[0].length);
-            System.out.println("   Píxeles positivos: " + positivos);
-            
-            // Mostrar una pequeña porción de la máscara (primeros 5x5 píxeles)
-            System.out.println("   Vista previa (5x5):");
-            for (int i = 0; i < Math.min(5, mascara.length); i++) {
-                System.out.print("   ");
-                for (int j = 0; j < Math.min(5, mascara[0].length); j++) {
-                    System.out.print(mascara[i][j] ? "█" : "·");
-                }
-                System.out.println();
-            }
-        }
-    }
 
     /**
      * Cuenta píxeles positivos en una máscara.
      */
     private static int contarPositivos(boolean[][] mascara) {
-        int count = 0;
-        for (boolean[] fila : mascara) {
-            for (boolean valor : fila) {
-                if (valor) count++;
+        int contador = 0;
+        for (int i = 0; i < mascara.length; i++) {
+            for (int j = 0; j < mascara[i].length; j++) {
+                if (mascara[i][j]) {
+                    contador++;
+                }
             }
         }
-        return count;
+        return contador;
     }
 
     /**
@@ -291,7 +288,8 @@ public class PruebaSistemaCompleto {
      */
     private static void ejecutarCasosDePruebaAdicionales() throws Exception {
         // Caso 1: Paciente pediátrico
-        System.out.println("\n   Caso 1: Paciente pediátrico");
+        System.out.println();
+        System.out.println("   Caso 1: Paciente pediátrico");
         Paciente pediatrico = new Paciente("11111111A", "Carlos", "Martín", "López", 2015);
         System.out.println("   ✓ Paciente: " + pediatrico.getNombre() + " " 
                 + pediatrico.getPrimerApellido());
@@ -299,7 +297,8 @@ public class PruebaSistemaCompleto {
         System.out.println("   ✓ Es pediátrico: " + pediatrico.esPediatrico());
 
         // Caso 2: Diferentes especialidades médicas
-        System.out.println("\n   Caso 2: Diferentes especialidades médicas");
+        System.out.println();
+        System.out.println("   Caso 2: Diferentes especialidades médicas");
         Medico radiologo = new Medico("11/11/11111", "Dr. Juan Pérez", 
                 "Hospital Clínico", EspecialidadMedica.RADIOLOGIA);
         System.out.println("   ✓ " + radiologo.getNombreCompleto() 
@@ -311,7 +310,8 @@ public class PruebaSistemaCompleto {
                 + " - " + anatomopatologo.getEspecialidad());
 
         // Caso 3: Muestra pequeña (patrón no cabe)
-        System.out.println("\n   Caso 3: Muestra muy pequeña (2x2)");
+        System.out.println();
+        System.out.println("   Caso 3: Muestra muy pequeña (2x2)");
         int[][] pixelesMinimos = {{5, 10}, {15, 0}};
         Muestra muestraPequena = new Muestra("MINI", pixelesMinimos);
         
@@ -327,11 +327,14 @@ public class PruebaSistemaCompleto {
         System.out.println("   ✓ Detecciones en muestra pequeña (esperado 0): " + detecciones);
 
         // Caso 4: Múltiples técnicas de adquisición
-        System.out.println("\n   Caso 4: Diferentes técnicas de adquisición");
-        for (TecnicaAdquisicion tecnica : TecnicaAdquisicion.values()) {
-            System.out.println("   ✓ Técnica disponible: " + tecnica);
+        System.out.println();
+        System.out.println("   Caso 4: Diferentes técnicas de adquisición");
+        TecnicaAdquisicion[] tecnicas = TecnicaAdquisicion.values();
+        for (int i = 0; i < tecnicas.length; i++) {
+            System.out.println("   ✓ Técnica disponible: " + tecnicas[i]);
         }
 
-        System.out.println("\n   ✓ Todos los casos de prueba adicionales completados");
+        System.out.println();
+        System.out.println("   ✓ Todos los casos de prueba adicionales completados");
     }
 }
