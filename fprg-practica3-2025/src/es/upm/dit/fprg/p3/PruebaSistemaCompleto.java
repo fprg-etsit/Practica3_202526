@@ -38,14 +38,14 @@ public class PruebaSistemaCompleto {
             System.out.println("   ✓ Muestra M002 cargada: " + muestra2.getAncho() + "x" 
                     + muestra2.getAlto() + " píxeles");
 
-            // Ejemplo de carga desde URL (comentado, descomentar si hay URL disponible)
-            /*
+            // Ejemplo de carga desde URL
+            
             System.out.println();
             System.out.println("   Cargando muestra desde URL...");
             Muestra muestra3 = cargarMuestraDesdeURL(
-                "https://ejemplo.com/muestra3.png", "M003");
+                "https://github.com/fprg-etsit/Practica3_202526/blob/master/fprg-practica3-2025/data/ejemplo_coronavirus_ruido1.png?raw=true", "M003");
             System.out.println("   ✓ Muestra M003 cargada desde URL");
-            */
+            
 
             // ========================================
             // 2. CREAR ESTUDIO DIAGNÓSTICO
