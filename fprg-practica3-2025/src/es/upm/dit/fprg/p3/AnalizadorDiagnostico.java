@@ -38,6 +38,22 @@ public class AnalizadorDiagnostico {
 
 
     /**
+     * Registra un nuevo reconocedor que será aplicado en los análisis posteriores.
+     * <p>
+     * Los reconocedores pueden ser de cualquier tipo que implemente la interfaz
+     * {@link ReconocedorImagen}, permitiendo combinar diferentes estrategias de
+     * detección (patrones específicos, estructuras lineales, etc.).
+     * </p>
+     *
+     * @param reconocedor reconocedor a registrar
+     * @throws Exception si el reconocedor es nulo
+     */
+    public void addReconocedor(ReconocedorImagen reconocedor) throws Exception {
+    	if(reconocedor == null) throw new Exception("Reconocedor nulo");
+        reconocedores.add(reconocedor);
+    }
+    
+    /**
      * Cuenta el número total de píxeles marcados como positivos en una máscara
      * de detección.
      * <p>

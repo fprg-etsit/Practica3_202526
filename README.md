@@ -278,8 +278,9 @@ La clase `EstudioDiagnostico` de la P1 debe ampliarse para incorporar la **compo
    - Modifique el método `toString()` para incluir los atributos `fechaPrescripcion` y `fechaInforme`, eliminando la referencia al antiguo `timestampPrescripcion`.
 
 3. **Añadir getters y setters para las fechas en formato ISO-8601:**
-   - La API pública de la clase no expondrá los atributos `fechaPrescripcion` y `fechaInforme` directamente. En su lugar, implemente getters y setters que trabajan con cadenas de texto (`String`) en formato ISO-8601 (por ejemplo: "2025-12-05T12:42:00").
-   - Los nombres de estos métodos incluirán el sufijo `Iso` para indicar que trabajan con el formato ISO-8601: `getFechaPrescripcionIso()`, `setFechaPrescripcionIso(String)`, `getFechaInformeIso()`, `setFechaInformeIso(String)`.
+
+   La API pública de la clase no expondrá los atributos `fechaPrescripcion` y `fechaInforme` directamente. En su lugar, implemente getters y setters que trabajan con cadenas de texto (`String`) en formato ISO-8601 (por ejemplo: "2025-12-05T12:42:00"). Los nombres de estos métodos incluirán el sufijo `Iso` para indicar que trabajan con el formato ISO-8601: `getFechaPrescripcionIso()`, `setFechaPrescripcionIso(String)`, `getFechaInformeIso()`, `setFechaInformeIso(String)`. 
+
    - En los métodos getter, convierta el objeto `LocalDateTime` a `String` utilizando el método [`toString()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html#toString()). Maneje correctamente el caso en que el atributo sea `null`, devolviendo `null` en ese caso.
    - En los métodos setter, convierta el `String` recibido a `LocalDateTime` utilizando el método [`LocalDateTime.parse(String)`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html#parse(java.lang.CharSequence)). Maneje correctamente el caso en que el parámetro recibido sea `null`.
 
@@ -292,8 +293,7 @@ La clase `EstudioDiagnostico` de la P1 debe ampliarse para incorporar la **compo
 
 
 5. **Implementar el método `informar`:**
-   - Implemente el método `public void informar(Medico informador, Map<String, Integer> resultados)` que reciba como parámetros el médico informador y un mapa con los resultados del análisis
-   - El método debe realizar tres operaciones: (1) asignar el médico recibido al atributo `informador`, (2) asignar al atributo `fechaInforme` la fecha y hora actual utilizando `LocalDateTime.now()`, y (3) asignar al atributo `resultados` una copia del `Map` recibido (por ejemplo, usando `new HashMap<>(resultados)`) para evitar modificaciones externas posteriores
+   - Implemente el método `public void informar(Medico informador, Map<String, Integer> resultados)` que reciba como parámetros el médico informador y un mapa con los resultados del análisis. El método debe realizar tres operaciones: (1) asignar el médico recibido al atributo `informador`, (2) asignar al atributo `fechaInforme` la fecha y hora actual utilizando `LocalDateTime.now()`, y (3) asignar al atributo `resultados` una copia del `Map` recibido (por ejemplo, usando `new HashMap<>(resultados)`) para evitar modificaciones externas posteriores
 
 
 > [!NOTE]
@@ -313,7 +313,7 @@ La clase `Muestra` debe actualizarse para incorporar un constructor que construy
      ```
      public Muestra(InputStream in, String id) throws Exception
      ```
-   - Este constructor permitirá cargar muestras desde ficheros locales, URLs u otras fuentes de datos
+   Este constructor permitirá cargar muestras desde ficheros locales, URLs u otras fuentes de datos
 
 2. **Cargar la imagen con `ImageIO`:**
    - Utilice el método [`ImageIO.read(InputStream)`](https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/javax/imageio/ImageIO.html#read(java.io.InputStream)) para leer la imagen desde el `InputStream` y almacenarla en un objeto `BufferedImage`
@@ -334,9 +334,7 @@ La clase `Muestra` debe actualizarse para incorporar un constructor que construy
      ```
      private int[][] extraerPixeles(BufferedImage img)
      ```
-   - Este método se encarga de extraer todos los píxeles de la imagen en escala de grises (rango 0-255) y convertirlos automáticamente al rango 0-15 mediante división entera (`v15 = v255 / 16`)
-   - El método devuelve una matriz `int[][]` con el orden fila→column
-   - Utilice este método proporcionado pasándole el `BufferedImage` cargado para obtener la matriz de píxeles procesada
+   Este método se encarga de extraer todos los píxeles de la imagen en escala de grises (rango 0-255) y convertirlos automáticamente al rango 0-15 mediante división entera (`v15 = v255 / 16`). El método devuelve una matriz `int[][]` con el orden fila→column. Utilice este método proporcionado pasándole el `BufferedImage` cargado para obtener la matriz de píxeles procesada
 
 ### 3. Implementar las interfaces
 
@@ -362,11 +360,12 @@ Se deben crear dos interfaces que permitirán abstraer el comportamiento de elem
 
 4. **Crear la interfaz `ReconocedorImagen`:**
    - Cree un nuevo archivo para la interfaz `ReconocedorImagen`
-   - Declare los siguientes dos métodos públicos:
+   - Declare el siguiente método público:
      ```
      boolean[][] detectar(Muestra m);
      ```
      Este método recibirá como parámetro un objeto de tipo `Muestra` y devolverá una matriz booleana bidimensional con las detecciones realizadas
+   - Declare el siguiente método público:
      ```
      ElementoMicroscopico getElemento();
      ```
@@ -394,7 +393,7 @@ La clase `Reconocedor` de la P2 ha sido renombrada a `ReconocedorPatron` y debe 
    - Este método debe devolver el atributo `patron` (de tipo `Patogeno`) que ya existe en la clase
 
 > [!IMPORTANT]
-> Fíjese que el atributo `patron` es de tipo `Patogeno`, pero el método `getElemento()` devuelve un objeto de tipo `ElementoMicroscopico`. ¿Por qué es esto posible? Reflexione sobre las relaciones de herencia e implementación de interfaces en Java.
+> Fíjese que el atributo `patron` es de tipo `Patogeno`, pero el método `getElemento()` devuelve un objeto de tipo `ElementoMicroscopico`. ¿Por qué es esto posible? Reflexione sobre el polimorfismo en Java.
 
 3. **Verificar la implementación:**
    - Asegúrese de que la clase compila correctamente sin errores
@@ -445,16 +444,9 @@ Esta clase coordina múltiples reconocedores y genera el informe cuantitativo ag
 1. **Atributo y constructor proporcionados:**
    - Se proporciona un atributo privado y final llamado `reconocedores` de tipo `Set<ReconocedorImagen>`
    - Se proporciona un constructor que inicializa este atributo con un `HashSet` vacío
+   - Se proporciona el  método `addReconocedor`, que toma un reconocedor como parámetro y lo añade al conjunto de reconocedores
 
-2. **Implementar el método `addReconocedor`:**
-   - Cree un método público con la siguiente signatura:
-     ```
-     public void addReconocedor(ReconocedorImagen reconocedor)
-     ```
-   - El método debe añadir el reconocedor recibido al conjunto de reconocedores
-   - Valide que el reconocedor recibido no es nulo antes de añadirlo
-
-3. **Implementar el método `analizar`:**
+2. **Implementar el método `analizar`:**
    - Implemente un método público con la siguiente signatura:
      ```
      public Map<String, Integer> analizar(EstudioDiagnostico estudio)
@@ -465,7 +457,7 @@ Esta clase coordina múltiples reconocedores y genera el informe cuantitativo ag
 > [!TIP]
 > Para acumular los resultados en el mapa, puede usar el método `get(nombre)` para obtener el valor actual (que será `null` si la clave no existe) y luego usar `put(nombre, nuevoValor)` para actualizar o insertar el resultado.
 
-4. **Método auxiliar proporcionado:**
+3. **Método auxiliar proporcionado:**
    - Se proporciona un método privado y estático con la siguiente implementación:
      ```
      private int contarPositivos(boolean[][] mascara) {
