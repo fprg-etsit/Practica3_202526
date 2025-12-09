@@ -500,22 +500,6 @@ La clase `EstudioDiagnostico` debe incluir funcionalidad para guardar su estado 
 > [!NOTE]
 > Para que `XMLEncoder` funcione correctamente, las clases serializadas deben cumplir una serie de características. Si al ejecutar el guardado obtiene errores relacionados con la serialización, verifique que todas las clases involucradas (`EstudioDiagnostico`, `Muestra`, `Medico`, `Paciente`, etc.) tengan un constructor sin argumentos (público o con visibilidad de paquete). Compruebe además que todas las propiedades que desea persistir tengan sus correspondientes métodos getter y setter. Para las propiedades de tipo `LocalDateTime` en `EstudioDiagnostico`, recuerde que ya implementó en el ejercicio 1 los métodos con sufijo `Iso` que trabajan con `String` en formato ISO-8601, que son compatibles con `XMLEncoder`. Todos estos requisitos ya se proporcionaron implementados o fueron solicitados en ejercicios anteriores. Si encuentra problemas de serialización, revise que no haya modificado accidentalmente ninguna de las cosas que se especifica en el apartado 2. Además, en la clase `Muestra`, asegúrese de que no ha eliminado la anotación `@java.beans.Transient` del método getter de la matriz de píxeles. Esta anotación evita que se serialice la matriz completa de píxeles, que puede ser muy grande
 
-2. **Probar el guardado:**
-   - Cree un `BufferedOutputStream` asociado a un archivo de salida (por ejemplo, "out/estudio.xml")
-   - Llame al método `guardar` del objeto `EstudioDiagnostico` pasándole el stream creado
-   - El método `guardar` debe capturar las excepciones que puedan ocurrir o bien declararlas en su signatura con `throws Exception`
-
-> [!TIP]
-> Ejemplo de uso con try-catch:
-> ```
-> try (BufferedOutputStream out = new BufferedOutputStream(
->         new FileOutputStream("out/estudio.xml"))) {
->     estudio.guardar(out);
-> } catch (Exception e) {
->     // Manejar excepción
-> }
-> ```
-
 
 ### 8. Probar el sistema completo
 
