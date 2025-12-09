@@ -1,0 +1,30 @@
+/bin/
+*target*
+*.jar
+*.war
+*.ear
+*.class
+
+# eclipse specific git ignore
+*.pydevproject
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+fprg-practica2-2025/doc/
+
+old*

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.17" class="java.beans.XMLDecoder">
+ <object class="es.upm.dit.fprg.p3.EstudioDiagnostico" id="EstudioDiagnostico0">
+  <void property="fechaInformeIso">
+   <string>2025-12-09T17:07:39.821158962</string>
+  </void>
+  <void property="fechaPrescripcionIso">
+   <string>2025-12-09T17:07:39.781746155</string>
+  </void>
+  <void property="informador">
+   <object class="es.upm.dit.fprg.p3.Medico">
+    <void property="centroSanitario">
+     <string>Hospital La Paz</string>
+    </void>
+    <void property="colegiado">
+     <string>28/28/22222</string>
+    </void>
+    <void property="especialidad">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>es.upm.dit.fprg.p3.EspecialidadMedica</class>
+      <string>RADIOLOGIA</string>
+     </object>
+    </void>
+    <void property="nombreCompleto">
+     <string>Dra. Ana Torres Ruiz</string>
+    </void>
+   </object>
+  </void>
+  <void property="muestras">
+   <void method="add">
+    <object class="es.upm.dit.fprg.p3.Muestra">
+     <void property="id">
+      <string>M001</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="es.upm.dit.fprg.p3.Muestra">
+     <void property="id">
+      <string>M002</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="paciente">
+   <object class="es.upm.dit.fprg.p3.Paciente">
+    <void property="anioNacimiento">
+     <int>1973</int>
+    </void>
+    <void property="dni">
+     <string>87654321B</string>
+    </void>
+    <void property="nombre">
+     <string>María</string>
+    </void>
+    <void property="primerApellido">
+     <string>López</string>
+    </void>
+    <void property="segundoApellido">
+     <string>García</string>
+    </void>
+   </object>
+  </void>
+  <void property="prescriptor">
+   <object class="es.upm.dit.fprg.p3.Medico">
+    <void property="centroSanitario">
+     <string>Hospital La Paz</string>
+    </void>
+    <void property="colegiado">
+     <string>28/28/11111</string>
+    </void>
+    <void property="especialidad">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>es.upm.dit.fprg.p3.EspecialidadMedica</class>
+      <string>MICROBIOLOGIA</string>
+     </object>
+    </void>
+    <void property="nombreCompleto">
+     <string>Dr. Carlos Ramírez Sánchez</string>
+    </void>
+   </object>
+  </void>
+  <void property="resultados">
+   <object class="java.util.LinkedHashMap">
+    <void method="put">
+     <string>Virus_XYZ</string>
+     <int>160</int>
+    </void>
+    <void method="put">
+     <string>Fibrilla_Oscura</string>
+     <int>8020</int>
+    </void>
+    <void method="put">
+     <string>Fibrilla_Clara</string>
+     <int>2120</int>
+    </void>
+    <void method="put">
+     <string>Bacteria_Tipo_A</string>
+     <int>1233</int>
+    </void>
+   </object>
+  </void>
+  <void property="tecnica">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>es.upm.dit.fprg.p3.TecnicaAdquisicion</class>
+    <string>ECOGRAFIA</string>
+   </object>
+  </void>
+ </object>
+</java>
